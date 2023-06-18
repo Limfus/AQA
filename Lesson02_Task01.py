@@ -53,7 +53,6 @@ modified_text = poem_text.replace('A', 'À').replace('a', 'à') \
     .replace('O', 'Ó').replace('o', 'ó') \
     .replace('U', 'Ú').replace('u', 'ú')
 
-"""Print the modified text"""
+"""The final result of a modified text"""
 
 print(modified_text)
-

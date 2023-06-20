@@ -1,3 +1,22 @@
+"""
+You have list of tuples.
+Each tuple represents:
+# name, age, some sum, last name, sex
+Please do such things:
+# 1 - sort list by age and sex fields
+# 2 - somehow you need to get new list as old list without first two elements and last two elements. Print this new list
+# 3 - in new list calculate total numbers of "female"  and "male" and print it as small table.
+Example:
+# -----------------
+# | sex    | count |
+# -----------------
+# |  female |  11  |
+# |   male  |  23  |
+# -----------------
+advice:
+# female and male calculation can be done vs flat list or you can find your own approach ;)
+"""
+
 people = [
     ('Alice', 32, 100, 'Johnson', 'female'),
     ('Bob', 41, 200, 'Smith', 'male'),

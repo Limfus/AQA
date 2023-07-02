@@ -1,8 +1,13 @@
-"""Exists some car data with color, year, engine_volume, car type , price
-We have search_criteria as tuple of ( year>= , engine_volume >= , price<=)
-write code that will help us to get cars that satisfy search_criteria.
-Cars should be sorted by price ascending. We should print up to five first found elements
 """
+Exists some car data with color, year, engine_volume, car type , price
+We have search_criteria as tuple of
+( year>= , engine_volume >= , price<=)
+write code that will help us to
+get cars that satisfy search_criteria.
+Cars should be sorted by price ascending.
+We should print up to five first found elements
+"""
+
 car_data = {
     'Mercedes': ('silver', 2019, 1.8, 'sedan', 50000),
     'Audi': ('black', 2020, 2.0, 'sedan', 55000),
@@ -44,6 +49,7 @@ car_data = {
     'Ford F-Series': ('gray', 2021, 3.5, 'pickup', 50000),
     'Nissan Titan': ('silver', 2018, 5.6, 'pickup', 35000)
 }
+
 search_criteria = (2017, 1.6, 36000)
 
 # Filtering and sorting the cars

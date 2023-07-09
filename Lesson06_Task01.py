@@ -18,6 +18,6 @@ l2 = [1, 2, 3]
 
 max_size = max(len(l1), len(l2))
 
-list_target = [(l1[i], l2[i]) if i < len(l1) and i < len(l2) else (l1[i], 0) if i < len(l1) else (0, l2[i]) for i in range(max_size)]
+list_target = [(l1[i] if i < len(l1) else 0, l2[i] if i < len(l2) else 0) for i in range(max_size)]
 
 print(list_target)

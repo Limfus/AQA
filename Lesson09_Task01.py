@@ -14,23 +14,25 @@ write to "output.txt" file in such format
 # #######################
 """
 
+import re
+
 # Read the input file
-with open('input.txt', 'r') as input_file:
+with open("input.txt", "r") as input_file:
     # Read the contents of the file
     content = input_file.read()
 
 # Find all English alphabet characters and their positions
-found_letters = re.findall(r"[A-Za-z]", content)
-letter_positions = [(char, content.index(char) + 1) for char in found_letters]
+letter_positions = [(match.group(), match.start() + 1)
+                    for match in re.finditer(r"[A-Za-z]", content)]
 
 # Write the collected information to the output file
-with open('output.txt', 'w') as output_file:
+with open("output.txt", "w") as output_file:
     # Write the header
-    output_file.write('#########################\n')
+    output_file.write("#########################\n")
 
     # Write the characters and their positions
     for letter, position in letter_positions:
-        output_file.write(f'{letter} -> pos{position}\n')
+        output_file.write(f"{letter} -> pos{position}\n")
 
     # Write the footer
-    output_file.write('#########################')
+    output_file.write("#########################")

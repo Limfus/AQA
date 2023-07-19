@@ -20,7 +20,7 @@ with open("input02.txt", "r") as input_file:
     content = input_file.read()
 
 # Find all small English letters that match the specified conditions
-matches = re.findall(r'(?<=[A-Z]{3})([a-z])(?=[A-Z]{3})', content)
+matches = re.findall(r'(?<![A-Z])[A-Z]{3}([a-z])[A-Z]{3}(?![A-Z])', content)
 
 # Convert the matches to a human-readable string
 result_string = "".join(matches) if matches else "No matches found"

@@ -1,5 +1,5 @@
 """
-Home-task 09 Recursion
+Home-task 12 Recursion
 
 Given list of list of list etc of integers
 write recursive function that will accept as argument target list

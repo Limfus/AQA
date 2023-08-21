@@ -10,7 +10,6 @@ Home-task 13 Class writing Practice
 """
 
 import datetime
-import datetime
 
 
 class BankCard:

@@ -16,19 +16,20 @@ class BankCard:
     """
     This class represents a bank card with various attributes and operations.
     """
+    PIN_SIZE = 4  # Example of a class attribute
 
     def __init__(self, card_num, cvv, pin, name, surname, end_date):
         self.card_num = card_num
-        self.cvv = cvv
-        self.pin = pin
+        self._cvv = cvv  # Protected attribute
+        self._pin = pin  # Protected attribute
         self.name = name
         self.surname = surname
         self.end_date = end_date
         self.is_blocked = False
         self.balance = 0.0
 
-    @classmethod
-    def generate_expiry_date(cls):
+    @staticmethod
+    def generate_expiry_date():
         """
         Generate an expiry date for the card.
         """
@@ -36,12 +37,13 @@ class BankCard:
         expiry_date = today.replace(year=today.year + 5)
         return expiry_date
 
-    @staticmethod
-    def validate_card_number(card_num):
-        """
-        Validate the card number.
-        """
-        return len(card_num) == 16 and card_num.isdigit()
+    @property
+    def cvv(self):
+        return self._cvv
+
+    @property
+    def pin(self):
+        return self._pin
 
     def block_card(self):
         """
@@ -55,8 +57,7 @@ class BankCard:
         """
         if not self.is_blocked and amount > 0:
             self.balance += amount
-            return True
-        return False
+        return self.balance
 
     def withdraw(self, amount):
         """
@@ -64,8 +65,7 @@ class BankCard:
         """
         if not self.is_blocked and 0 < amount <= self.balance:
             self.balance -= amount
-            return True
-        return False
+        return self.balance
 
     # Getters and Setters
     def get_balance(self):
@@ -84,10 +84,17 @@ class BankCard:
         """
         Set a new PIN for the card.
         """
-        if len(str(new_pin)) == 4:
-            self.pin = new_pin
+        if len(str(new_pin)) == self.PIN_SIZE:
+            self._pin = new_pin
             return True
         return False
+
+    @staticmethod
+    def validate_card_number(card_num):
+        """
+        Validate the card number.
+        """
+        return len(card_num) == 16 and card_num.isdigit()
 
 
 if __name__ == "__main__":
@@ -110,17 +117,20 @@ if __name__ == "__main__":
     else:
         print("Invalid card number.")
 
-    if card.deposit(500):
+    try:
+        card.deposit(500)
         print("Deposit successful. New balance:", card.get_balance())
-    else:
-        print("Deposit failed.")
+    except BaseException as e:
+        print(f"Deposit failed: {e}")
 
-    if card.withdraw(200):
+    try:
+        card.withdraw(200)
         print("Withdrawal successful. New balance:", card.get_balance())
-    else:
-        print("Withdrawal failed.")
+    except BaseException as e:
+        print(f"Withdrawal failed: {e}")
 
-    if card.set_pin("9876"):
+    try:
+        card.set_pin("9876")
         print("PIN has been updated.")
-    else:
-        print("Failed to update PIN.")
+    except BaseException as e:
+        print(f"Failed to update PIN: {e}")

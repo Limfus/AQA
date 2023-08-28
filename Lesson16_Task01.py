@@ -41,9 +41,20 @@ class BankCard:
     def cvv(self):
         return self._cvv
 
+    @cvv.setter
+    def cvv(self, new_cvv):
+        self._cvv = new_cvv
+
     @property
     def pin(self):
         return self._pin
+
+    @pin.setter
+    def pin(self, new_pin):
+        if len(str(new_pin)) == self.PIN_SIZE:
+            self._pin = new_pin
+        else:
+            raise ValueError("PIN must be 4 digits")
 
     def block_card(self):
         """
@@ -57,7 +68,8 @@ class BankCard:
         """
         if not self.is_blocked and amount > 0:
             self.balance += amount
-        return self.balance
+        else:
+            raise BaseException("Deposit failed")
 
     def withdraw(self, amount):
         """
@@ -65,7 +77,8 @@ class BankCard:
         """
         if not self.is_blocked and 0 < amount <= self.balance:
             self.balance -= amount
-        return self.balance
+        else:
+            raise BaseException("Withdrawal failed")
 
     # Getters and Setters
     def get_balance(self):
@@ -80,57 +93,31 @@ class BankCard:
         """
         return f"{self.name} {self.surname}"
 
-    def set_pin(self, new_pin):
-        """
-        Set a new PIN for the card.
-        """
-        if len(str(new_pin)) == self.PIN_SIZE:
-            self._pin = new_pin
-            return True
-        return False
-
-    @staticmethod
-    def validate_card_number(card_num):
-        """
-        Validate the card number.
-        """
-        return len(card_num) == 16 and card_num.isdigit()
-
 
 if __name__ == "__main__":
-    card_num = "1234567890123456"
-    cvv = "123"
-    pin = "4321"
-    name = "John"
-    surname = "Doe"
-    end_date = BankCard.generate_expiry_date()
-
-    card = BankCard(card_num, cvv, pin, name, surname, end_date)
-
-    print(f"Card Holder: {card.get_full_name()}")
-    print(f"Card Number: {card.card_num}")
-    print(f"Expiry Date: {card.end_date}")
-    print(f"Current Balance: ${card.get_balance()}")
-
-    if card.validate_card_number(card.card_num):
-        print("Card number is valid.")
-    else:
-        print("Invalid card number.")
-
     try:
+        card_num = "1234567890123456"
+        cvv = "123"
+        pin = "4321"
+        name = "John"
+        surname = "Doe"
+        end_date = BankCard.generate_expiry_date()
+
+        card = BankCard(card_num, cvv, pin, name, surname, end_date)
+
+        print(f"Card Holder: {card.get_full_name()}")
+        print(f"Card Number: {card.card_num}")
+        print(f"Expiry Date: {card.end_date}")
+        print(f"Current Balance: ${card.get_balance()}")
+
         card.deposit(500)
         print("Deposit successful. New balance:", card.get_balance())
-    except BaseException as e:
-        print(f"Deposit failed: {e}")
 
-    try:
         card.withdraw(200)
         print("Withdrawal successful. New balance:", card.get_balance())
-    except BaseException as e:
-        print(f"Withdrawal failed: {e}")
 
-    try:
-        card.set_pin("9876")
+        card.pin = "9876"
         print("PIN has been updated.")
+
     except BaseException as e:
-        print(f"Failed to update PIN: {e}")
+        print(f"An error occurred: {e}")
